@@ -1,0 +1,34 @@
+name: Test Linux ARM64
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: test-linux-arm64-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # ---- Linux arm64 Qt GUI (4K pages) ----------------------------------------
+  linux-arm64-4k:
+    name: Linux arm64 (4K pages)
+    uses: ./.github/workflows/linux_build_qt.yml
+    with:
+      jobName: "Linux arm64 4K test"
+      artifactPrefixName: "armsx2-linux-arm64-4k-test"
+      compiler: clang
+      cmakeflags: "-DHOST_PAGE_SIZE=4096 -DHOST_CACHE_LINE_SIZE=64"
+      buildAppImage: true
+    secrets: inherit
+
+  # ---- Linux arm64 libretro -------------------------------------------------
+  linux-arm64-libretro:
+    name: Linux arm64 (libretro)
+    uses: ./.github/workflows/linux_build_libretro.yml
+    with:
+      jobName: "Linux arm64 libretro test"
+      artifactPrefixName: "armsx2-linux-arm64-libretro-test"
+      fetchTags: true
+    secrets: inherit
