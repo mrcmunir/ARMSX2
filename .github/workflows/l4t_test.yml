@@ -1,6 +1,10 @@
 name: Test Linux ARM64
 
 on:
+  push:
+    branches:
+      - l4t-nvidia
+
   workflow_dispatch:
 
 concurrency:
@@ -11,7 +15,6 @@ permissions:
   contents: read
 
 jobs:
-  # ---- Linux arm64 Qt GUI (4K pages) ----------------------------------------
   linux-arm64-4k:
     name: Linux arm64 (4K pages)
     uses: ./.github/workflows/linux_build_qt.yml
@@ -23,7 +26,6 @@ jobs:
       buildAppImage: true
     secrets: inherit
 
-  # ---- Linux arm64 libretro -------------------------------------------------
   linux-arm64-libretro:
     name: Linux arm64 (libretro)
     uses: ./.github/workflows/linux_build_libretro.yml
