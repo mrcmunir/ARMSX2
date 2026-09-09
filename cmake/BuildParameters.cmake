@@ -148,7 +148,7 @@ elseif("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "arm64" OR "${CMAKE_SYSTEM_PROCESSOR
 		# on the compile line, so unconditionally adding it here silently
 		# overrides any user -march (proven by a casal SIGILL on a real A53 device).
 		if(NOT CMAKE_CXX_FLAGS MATCHES "-march=")
-			add_compile_options("-march=armv8.1-a")
+			add_compile_options("-march=armv8-a+crc+simd+fp")
 		endif()
 	endif()
 
